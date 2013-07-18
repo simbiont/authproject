@@ -14,7 +14,7 @@
 | path to your installation.
 |
 */
-$config['base_url'] = 'http://23.23.179.157/authproject.dev/';
+$config['base_url'] = '';
 
 /*
 |--------------------------------------------------------------------------
