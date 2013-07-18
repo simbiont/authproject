@@ -18,7 +18,6 @@
 		<div class="span12">
 			<table id="tblJQGrid"></table>
 	        <div id="divPager"></div>
-	        <input type="button" id="bedata" value="Edit Selected" />
         </div>
 	</div>
 
