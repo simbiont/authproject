@@ -42,7 +42,7 @@ $active_group = 'default';
 $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
-$db['default']['username'] = 'root';
+$db['default']['username'] = 'jhon_simbiont';
 $db['default']['password'] = 'root';
 $db['default']['database'] = 'db_authprojects';
 $db['default']['dbdriver'] = 'mysql';
