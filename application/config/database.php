@@ -43,7 +43,7 @@ $active_record = TRUE;
 
 $db['default']['hostname'] = 'localhost';
 $db['default']['username'] = 'jhon_simbiont';
-$db['default']['password'] = 'root';
+$db['default']['password'] = 'gbplfnsq_gfhjkm';
 $db['default']['database'] = 'db_authprojects';
 $db['default']['dbdriver'] = 'mysql';
 $db['default']['dbprefix'] = '';
