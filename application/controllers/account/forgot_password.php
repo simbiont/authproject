@@ -2,7 +2,7 @@
 /*
  * Forgot_password Controller
  */
-class Forgot_password extends CI_Controller {
+class Forgot_password extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -53,7 +53,7 @@ class Forgot_password extends CI_Controller {
 			// User has neither already passed recaptcha nor just passed recaptcha
 			if ($this->session->userdata('forget_password_recaptcha_pass') != TRUE && $recaptcha_result !== TRUE && ($this->config->item("forgot_password_recaptcha_enabled") === TRUE))
 			{
-				$data['forgot_password_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('forgot_password_recaptcha_incorrect') : lang('forgot_password_recaptcha_required');
+				$this->data['forgot_password_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('forgot_password_recaptcha_incorrect') : lang('forgot_password_recaptcha_required');
 			}
 			else
 			{
@@ -63,12 +63,12 @@ class Forgot_password extends CI_Controller {
 				// Username does not exist
 				if ( ! $account = $this->account_model->get_by_username_email($this->input->post('forgot_password_username_email', TRUE)))
 				{
-					$data['forgot_password_username_email_error'] = lang('forgot_password_username_email_does_not_exist');
+					$this->data['forgot_password_username_email_error'] = lang('forgot_password_username_email_does_not_exist');
 				}
 				// Does not manage password
 				elseif ( ! $account->password)
 				{
-					$data['forgot_password_username_email_error'] = lang('forgot_password_does_not_manage_password');
+					$this->data['forgot_password_username_email_error'] = lang('forgot_password_does_not_manage_password');
 				}
 				else
 				{
@@ -98,7 +98,7 @@ class Forgot_password extends CI_Controller {
 					@$this->email->send();
 
 					// Load reset password sent view
-					$this->load->view('account/reset_password_sent', isset($data) ? $data : NULL);
+					$this->load->view('account/reset_password_sent', isset($this->data) ? $this->data : NULL);
 					return;
 				}
 			}
@@ -107,10 +107,10 @@ class Forgot_password extends CI_Controller {
 		// Load recaptcha code if recaptcha is enabled
 		if ($this->config->item("forgot_password_recaptcha_enabled") === TRUE)
 			if ($this->session->userdata('forget_password_recaptcha_pass') != TRUE)
-				$data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
+				$this->data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
 
 		// Load forgot password view
-		$this->load->view('account/forgot_password', isset($data) ? $data : NULL);
+		$this->load->view('account/forgot_password', isset($this->data) ? $this->data : NULL);
 	}
 
 	public function check_username_or_email($str)

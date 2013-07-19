@@ -2,7 +2,7 @@
 /*
  * Connect_yahoo Controller
  */
-class Connect_yahoo extends CI_Controller {
+class Connect_yahoo extends MY_Controller {
 
 	/**
 	 * Constructor

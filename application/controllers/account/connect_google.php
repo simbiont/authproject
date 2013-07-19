@@ -2,7 +2,7 @@
 /*
  * Connect_google Controller
  */
-class Connect_google extends CI_Controller {
+class Connect_google extends MY_Controller {
 
 	/**
 	 * Constructor

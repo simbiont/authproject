@@ -2,7 +2,7 @@
 /*
  * Account_password Controller
  */
-class Account_password extends CI_Controller {
+class Account_password extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -34,10 +34,10 @@ class Account_password extends CI_Controller {
 		}
 
 		// Retrieve sign in user
-		$data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
+		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
 
 		// No access to users without a password
-		if ( ! $data['account']->password) redirect('');
+		if ( ! $this->data['account']->password) redirect('');
 
 		### Setup form validation
 		$this->form_validation->set_error_delimiters('<span class="field_error">', '</span>');
@@ -47,12 +47,12 @@ class Account_password extends CI_Controller {
 		if ($this->form_validation->run())
 		{
 			// Change user's password
-			$this->account_model->update_password($data['account']->id, $this->input->post('password_new_password', TRUE));
+			$this->account_model->update_password($this->data['account']->id, $this->input->post('password_new_password', TRUE));
 			$this->session->set_flashdata('password_info', lang('password_password_has_been_changed'));
 			redirect('account/account_password');
 		}
 
-		$this->load->view('account/account_password', $data);
+		$this->load->view('account/account_password', $this->data);
 	}
 
 }

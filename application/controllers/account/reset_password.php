@@ -2,7 +2,7 @@
 /*
  * Reset_password Controller
  */
-class Reset_password extends CI_Controller {
+class Reset_password extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -38,14 +38,14 @@ class Reset_password extends CI_Controller {
 		{
 			if ($this->input->post('recaptcha_challenge_field'))
 			{
-				$data['reset_password_recaptcha_error'] = $recaptcha_result ? lang('reset_password_recaptcha_incorrect') : lang('reset_password_recaptcha_required');
+				$this->data['reset_password_recaptcha_error'] = $recaptcha_result ? lang('reset_password_recaptcha_incorrect') : lang('reset_password_recaptcha_required');
 			}
 
 			// Load recaptcha code
-			$data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
+			$this->data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
 
 			// Load reset password captcha view
-			$this->load->view('account/reset_password_captcha', isset($data) ? $data : NULL);
+			$this->load->view('account/reset_password_captcha', isset($this->data) ? $this->data : NULL);
 			return;
 		}
 
@@ -71,7 +71,7 @@ class Reset_password extends CI_Controller {
 		}
 
 		// Load reset password unsuccessful view
-		$this->load->view('account/reset_password_unsuccessful', isset($data) ? $data : NULL);
+		$this->load->view('account/reset_password_unsuccessful', isset($this->data) ? $this->data : NULL);
 	}
 
 }

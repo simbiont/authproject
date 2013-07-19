@@ -2,7 +2,7 @@
 /*
  * Connect_openid Controller
  */
-class Connect_openid extends CI_Controller {
+class Connect_openid extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -27,9 +27,9 @@ class Connect_openid extends CI_Controller {
 		// Retrieve sign in user
 		if ($this->authentication->is_signed_in())
 		{
-			$data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
+			$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
 		}
-		//$data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
+		//$this->data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
 
 		// Get OpenID store object
 		$store = new Auth_OpenID_FileStore($this->config->item("openid_file_store_path"));
@@ -120,7 +120,7 @@ class Connect_openid extends CI_Controller {
 			// Begin OpenID authentication process
 			if ( ! $auth_request = $consumer->begin($this->input->post('connect_openid_url')))
 			{
-				$data['connect_openid_error'] = sprintf(lang('connect_invalid_openid'), lang('connect_openid'));
+				$this->data['connect_openid_error'] = sprintf(lang('connect_invalid_openid'), lang('connect_openid'));
 			}
 			else
 			{
@@ -132,7 +132,7 @@ class Connect_openid extends CI_Controller {
 			}
 		}
 
-		$this->load->view('account/connect_openid', isset($data) ? $data : NULL);
+		$this->load->view('account/connect_openid', isset($this->data) ? $this->data : NULL);
 	}
 
 }

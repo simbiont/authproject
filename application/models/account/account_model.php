@@ -235,6 +235,37 @@ class Account_model extends CI_Model {
 		$this->db->update('a3m_account', array('suspendedon' => NULL), array('id' => $account_id));
 	}
 
+    /**
+     * Set user role
+     *
+     * @access public
+     * @param int $account_id
+     * @param int $role_id
+     * @return void
+     */
+    function set_role($account_id = null, $role_id = null) {
+
+        $this->db->replace('a3m_rel_account_role', array( 'account_id' => $account_id, 'role_id' => $role_id ) );
+
+    }
+
+    /**
+     * Get user role
+     *
+     * @access public
+     * @param int $account_id
+     * @return int
+     */
+    function get_role_id($account_id = null) {
+
+        return $this->db->
+            select('*')->
+            from('a3m_rel_account_role')->
+            where('account_id', $account_id)->
+            get()->row()->role_id;
+
+    }
+
 }
 
 

@@ -2,7 +2,7 @@
 /*
  * Sign_out Controller
  */
-class Sign_out extends CI_Controller {
+class Sign_out extends MY_Controller {
 
 	/**
 	 * Constructor

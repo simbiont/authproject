@@ -144,3 +144,7 @@ input.openid {
 #tb_crud_page{
     width: 10px;
 }
+
+.grid_buttons {
+  margin-top: 20px;
+}

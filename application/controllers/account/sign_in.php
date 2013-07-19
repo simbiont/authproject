@@ -2,7 +2,7 @@
 /*
  * Sign_in Controller
  */
-class Sign_in extends CI_Controller {
+class Sign_in extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -61,14 +61,14 @@ class Sign_in extends CI_Controller {
 			if ( ! $user = $this->account_model->get_by_username_email($this->input->post('sign_in_username_email', TRUE)))
 			{
 				// Username / email doesn't exist
-				$data['sign_in_username_email_error'] = lang('sign_in_username_email_does_not_exist');
+				$this->data['sign_in_username_email_error'] = lang('sign_in_username_email_does_not_exist');
 			}
 			else
 			{
 				// Either don't need to pass recaptcha or just passed recaptcha
 				if ( ! ($recaptcha_pass === TRUE || $recaptcha_result === TRUE) && $this->config->item("sign_in_recaptcha_enabled") === TRUE)
 				{
-					$data['sign_in_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('sign_in_recaptcha_incorrect') : lang('sign_in_recaptcha_required');
+					$this->data['sign_in_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('sign_in_recaptcha_incorrect') : lang('sign_in_recaptcha_required');
 				}
 				else
 				{
@@ -78,7 +78,7 @@ class Sign_in extends CI_Controller {
 						// Increment sign in failed attempts
 						$this->session->set_userdata('sign_in_failed_attempts', (int)$this->session->userdata('sign_in_failed_attempts') + 1);
 
-						$data['sign_in_error'] = lang('sign_in_combination_incorrect');
+						$this->data['sign_in_error'] = lang('sign_in_combination_incorrect');
 					}
 					else
 					{
@@ -95,10 +95,10 @@ class Sign_in extends CI_Controller {
 		// Load recaptcha code
 		if ($this->config->item("sign_in_recaptcha_enabled") === TRUE)
 			if ($this->config->item('sign_in_recaptcha_offset') <= $this->session->userdata('sign_in_failed_attempts'))
-				$data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
+				$this->data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
 
 		// Load sign in view
-		$this->load->view('sign_in', isset($data) ? $data : NULL);
+		$this->load->view('sign_in', isset($this->data) ? $this->data : NULL);
 	}
 
 }

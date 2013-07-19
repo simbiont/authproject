@@ -2,7 +2,7 @@
 /*
  * Connect_twitter Controller
  */
-class Connect_twitter extends CI_Controller {
+class Connect_twitter extends MY_Controller {
 
 	/**
 	 * Constructor

@@ -1,5 +1,5 @@
 <?php 
-class Projects extends CI_Controller {
+class Projects extends MY_Controller {
 
 	public function __construct() {
 
@@ -10,56 +10,60 @@ class Projects extends CI_Controller {
 	public function index () {
 		// TODO: main user's projects page
 
-		$this->browse( 0 );		
+		$this->browse();
 	}
 
-	public function ajax_json_provider_projects( $page = 0 ) {
-		
-		$page = $this->input->get('page');
-		$limit = $this->input->get('rows');
-		$sidx = $this->input->get('sidx');
-		$sord = $this->input->get('sord');
-
-		$this->load->model('projects_model');
-
-		echo json_encode($this->projects_model->getProjects());
-
-	}
-
-	public function browse( $page = 0 ) {
-		// TODO: display projects list
+	public function browse( $page = 0, $user_id = null ) {
 
 		if ($this->authentication->is_signed_in()) {
-			$data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-		}
-		else 
-		{
+			$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
+            if( !$user_id ) {
+                $user_id = $this->session->userdata('account_id');
+            } else {
+                // TODO: check if not an admin prevent projects displaying
+            }
+		} else {
 			redirect("/");
 		}
 
-		$data['page'] = $page;
+		$this->data['page'] = $page;
 
-		$this->load->view( 'projects.php', $data );
+        $this->data['test_data'] = 'Test text';
+
+		$this->master_view( 'projects' );
 	}
 
-	public function add () {
+	public function add ( $user_id = null ) {
+
+        if ( !$this->authentication->is_signed_in() ) {
+            redirect("/");
+        } else {
+            $this->data['account'] = $this->account_model->get_by_id( $this->session->userdata('account_id') );
+        }
+
 		// TODO: add new project
 
 	}
 
-	public function edit( $id = null ) {
-
-		try {
-			if( !$id) {
-				throw new Exception("Error: project id not specified.");				
-			}
-		} catch (Exception $e) {
-
-			die( $e->getMessage() );
-
-		}
-
+	public function ajax_json_edit_projects( $page = 0 ) {
+		$post = $this->input->post();
+		$user_id = $this->session->userdata('account_id');
+		$this->load->model('projects_model');
+		$this->projects_model->editProjects($post, $user_id);
 	}
+
+    public function ajax_json_provider_projects( $page = 0 ) {
+
+        $page = $this->input->get('page');
+        $limit = $this->input->get('rows');
+        $sidx = $this->input->get('sidx');
+        $sord = $this->input->get('sord');
+
+        $this->load->model('projects_model');
+
+        echo json_encode($this->projects_model->getProjects($page, $limit, $sidx, $sord));
+
+    }
 
 
 } ?>

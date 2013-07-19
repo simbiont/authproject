@@ -2,7 +2,7 @@
 /*
  * Account_profile Controller
  */
-class Account_profile extends CI_Controller {
+class Account_profile extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -34,17 +34,17 @@ class Account_profile extends CI_Controller {
 		}
 
 		// Retrieve sign in user
-		$data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-		$data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
+		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
+		$this->data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
 		
 		// Retrieve user's gravatar if available
-		$data['gravatar'] = $this->gravatar->get_gravatar( $data['account']->email );
+		$this->data['gravatar'] = $this->gravatar->get_gravatar( $this->data['account']->email );
 
 		// Delete profile picture
 		if ($action == 'delete')
 		{
-			unlink(FCPATH.RES_DIR.'/user/profile/'.$data['account_details']->picture); // delete previous picture
-			$this->account_details_model->update($data['account']->id, array('picture' => NULL));
+			unlink(FCPATH.RES_DIR.'/user/profile/'.$this->data['account_details']->picture); // delete previous picture
+			$this->account_details_model->update($this->data['account']->id, array('picture' => NULL));
 			redirect('account/account_profile');
 		}
 
@@ -56,22 +56,22 @@ class Account_profile extends CI_Controller {
 		if ($this->form_validation->run())
 		{
 			// If user is changing username and new username is already taken
-			if (strtolower($this->input->post('profile_username', TRUE)) != strtolower($data['account']->username) && $this->username_check($this->input->post('profile_username', TRUE)) === TRUE)
+			if (strtolower($this->input->post('profile_username', TRUE)) != strtolower($this->data['account']->username) && $this->username_check($this->input->post('profile_username', TRUE)) === TRUE)
 			{
-				$data['profile_username_error'] = lang('profile_username_taken');
+				$this->data['profile_username_error'] = lang('profile_username_taken');
 				$error = TRUE;
 			}
 			else
 			{
-				$data['account']->username = $this->input->post('profile_username', TRUE);
-				$this->account_model->update_username($data['account']->id, $this->input->post('profile_username', TRUE));
+				$this->data['account']->username = $this->input->post('profile_username', TRUE);
+				$this->account_model->update_username($this->data['account']->id, $this->input->post('profile_username', TRUE));
 			}
 			
 			switch( $this->input->post('pic_selection') )
 			{
 				case "gravatar":
 
-					$this->account_details_model->update($data['account']->id, array('picture' => $data['gravatar']));
+					$this->account_details_model->update($this->data['account']->id, array('picture' => $this->data['gravatar']));
 					redirect( current_url() );
 					
 				break;
@@ -88,7 +88,7 @@ class Account_profile extends CI_Controller {
 						/// Try to upload the file
 						if ( ! $this->upload->do_upload('account_picture_upload'))
 						{
-							$data['profile_picture_error'] = $this->upload->display_errors('', '');
+							$this->data['profile_picture_error'] = $this->upload->display_errors('', '');
 							$error = TRUE;
 						}
 						else
@@ -99,18 +99,18 @@ class Account_profile extends CI_Controller {
 							// Create picture thumbnail - http://codeigniter.com/user_guide/libraries/image_lib.html
 							$this->load->library('image_lib');
 							$this->image_lib->clear();
-							$this->image_lib->initialize(array('image_library' => 'gd2', 'source_image' => FCPATH.RES_DIR.'/user/profile/'.$picture['file_name'], 'new_image' => FCPATH.RES_DIR.'/user/profile/pic_'.md5($data['account']->id).$picture['file_ext'], 'maintain_ratio' => FALSE, 'quality' => '100%', 'width' => 100, 'height' => 100));
+							$this->image_lib->initialize(array('image_library' => 'gd2', 'source_image' => FCPATH.RES_DIR.'/user/profile/'.$picture['file_name'], 'new_image' => FCPATH.RES_DIR.'/user/profile/pic_'.md5($this->data['account']->id).$picture['file_ext'], 'maintain_ratio' => FALSE, 'quality' => '100%', 'width' => 100, 'height' => 100));
 
 							// Try resizing the picture
 							if ( ! $this->image_lib->resize())
 							{
-								$data['profile_picture_error'] = $this->image_lib->display_errors();
+								$this->data['profile_picture_error'] = $this->image_lib->display_errors();
 								$error = TRUE;
 							}
 							else
 							{
-								$data['account_details']->picture = 'pic_'.md5($data['account']->id).$picture['file_ext'];
-								$this->account_details_model->update($data['account']->id, array('picture' => $data['account_details']->picture));
+								$this->data['account_details']->picture = 'pic_'.md5($this->data['account']->id).$picture['file_ext'];
+								$this->account_details_model->update($this->data['account']->id, array('picture' => $this->data['account_details']->picture));
 							}
 
 							// Delete original uploaded file
@@ -124,10 +124,10 @@ class Account_profile extends CI_Controller {
 				
 			} // end switch
 
-			if ( ! isset($error)) $data['profile_info'] = lang('profile_updated');
+			if ( ! isset($error)) $this->data['profile_info'] = lang('profile_updated');
 		}
 
-		$this->load->view('account/account_profile', $data);
+		$this->load->view('account/account_profile', $this->data);
 	}
 
 	/**

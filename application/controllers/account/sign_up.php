@@ -2,7 +2,7 @@
 /*
  * Sign_up Controller
  */
-class Sign_up extends CI_Controller {
+class Sign_up extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -49,17 +49,17 @@ class Sign_up extends CI_Controller {
 			// Check if user name is taken
 			if ($this->username_check($this->input->post('sign_up_username')) === TRUE)
 			{
-				$data['sign_up_username_error'] = lang('sign_up_username_taken');
+				$this->data['sign_up_username_error'] = lang('sign_up_username_taken');
 			}
 			// Check if email already exist
 			elseif ($this->email_check($this->input->post('sign_up_email')) === TRUE)
 			{
-				$data['sign_up_email_error'] = lang('sign_up_email_exist');
+				$this->data['sign_up_email_error'] = lang('sign_up_email_exist');
 			}
 			// Either already pass recaptcha or just passed recaptcha
 			elseif ( ! ($this->session->userdata('sign_up_recaptcha_pass') == TRUE || $recaptcha_result === TRUE) && $this->config->item("sign_up_recaptcha_enabled") === TRUE)
 			{
-				$data['sign_up_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('sign_up_recaptcha_incorrect') : lang('sign_up_recaptcha_required');
+				$this->data['sign_up_recaptcha_error'] = $this->input->post('recaptcha_response_field') ? lang('sign_up_recaptcha_incorrect') : lang('sign_up_recaptcha_required');
 			}
 			else
 			{
@@ -68,6 +68,9 @@ class Sign_up extends CI_Controller {
 
 				// Create user
 				$user_id = $this->account_model->create($this->input->post('sign_up_username', TRUE), $this->input->post('sign_up_email', TRUE), $this->input->post('sign_up_password', TRUE));
+
+                // Setup user's default role
+                $this->account_model->set_role( $user_id, $this->config->item("default_role_id"));
 
 				// Add user details (auto detected country, language, timezone)
 				$this->account_details_model->update($user_id);
@@ -83,10 +86,10 @@ class Sign_up extends CI_Controller {
 		}
 
 		// Load recaptcha code
-		if ($this->config->item("sign_up_recaptcha_enabled") === TRUE) if ($this->session->userdata('sign_up_recaptcha_pass') != TRUE) $data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
+		if ($this->config->item("sign_up_recaptcha_enabled") === TRUE) if ($this->session->userdata('sign_up_recaptcha_pass') != TRUE) $this->data['recaptcha'] = $this->recaptcha->load($recaptcha_result, $this->config->item("ssl_enabled"));
 
 		// Load sign up view
-		$this->load->view('sign_up', isset($data) ? $data : NULL);
+		$this->load->view('sign_up', isset($this->data) ? $this->data : NULL);
 	}
 
 	/**

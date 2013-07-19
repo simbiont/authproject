@@ -2,7 +2,7 @@
 /*
  * Account_linked Controller
  */
-class Account_linked extends CI_Controller {
+class Account_linked extends MY_Controller {
 
 	/**
 	 * Constructor
@@ -34,7 +34,7 @@ class Account_linked extends CI_Controller {
 		}
 
 		// Retrieve sign in user
-		$data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
+		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
 
 		// Delete a linked account
 		if ($this->input->post('facebook_id') || $this->input->post('twitter_id') || $this->input->post('openid'))
@@ -47,46 +47,46 @@ class Account_linked extends CI_Controller {
 		}
 
 		// Check for linked accounts
-		$data['num_of_linked_accounts'] = 0;
+		$this->data['num_of_linked_accounts'] = 0;
 
 		// Get Facebook accounts
-		if ($data['facebook_links'] = $this->account_facebook_model->get_by_account_id($this->session->userdata('account_id')))
+		if ($this->data['facebook_links'] = $this->account_facebook_model->get_by_account_id($this->session->userdata('account_id')))
 		{
-			foreach ($data['facebook_links'] as $index => $facebook_link)
+			foreach ($this->data['facebook_links'] as $index => $facebook_link)
 			{
-				$data['num_of_linked_accounts'] ++;
+				$this->data['num_of_linked_accounts'] ++;
 			}
 		}
 
 		// Get Twitter accounts
-		if ($data['twitter_links'] = $this->account_twitter_model->get_by_account_id($this->session->userdata('account_id')))
+		if ($this->data['twitter_links'] = $this->account_twitter_model->get_by_account_id($this->session->userdata('account_id')))
 		{
 			$this->load->config('account/twitter');
 			$this->load->helper('account/twitter');
-			foreach ($data['twitter_links'] as $index => $twitter_link)
+			foreach ($this->data['twitter_links'] as $index => $twitter_link)
 			{
-				$data['num_of_linked_accounts'] ++;
+				$this->data['num_of_linked_accounts'] ++;
 				$epiTwitter = new EpiTwitter($this->config->item('twitter_consumer_key'), $this->config->item('twitter_consumer_secret'), $twitter_link->oauth_token, $twitter_link->oauth_token_secret);
-				$data['twitter_links'][$index]->twitter = $epiTwitter->get_usersShow(array('user_id' => $twitter_link->twitter_id));
+				$this->data['twitter_links'][$index]->twitter = $epiTwitter->get_usersShow(array('user_id' => $twitter_link->twitter_id));
 			}
 		}
 
 		// Get OpenID accounts
-		if ($data['openid_links'] = $this->account_openid_model->get_by_account_id($this->session->userdata('account_id')))
+		if ($this->data['openid_links'] = $this->account_openid_model->get_by_account_id($this->session->userdata('account_id')))
 		{
-			foreach ($data['openid_links'] as $index => $openid_link)
+			foreach ($this->data['openid_links'] as $index => $openid_link)
 			{
-				if (strpos($openid_link->openid, 'google.com')) $data['openid_links'][$index]->provider = 'google';
-				elseif (strpos($openid_link->openid, 'yahoo.com')) $data['openid_links'][$index]->provider = 'yahoo';
-				elseif (strpos($openid_link->openid, 'myspace.com')) $data['openid_links'][$index]->provider = 'myspace';
-				elseif (strpos($openid_link->openid, 'aol.com')) $data['openid_links'][$index]->provider = 'aol';
-				else $data['openid_links'][$index]->provider = 'openid';
+				if (strpos($openid_link->openid, 'google.com')) $this->data['openid_links'][$index]->provider = 'google';
+				elseif (strpos($openid_link->openid, 'yahoo.com')) $this->data['openid_links'][$index]->provider = 'yahoo';
+				elseif (strpos($openid_link->openid, 'myspace.com')) $this->data['openid_links'][$index]->provider = 'myspace';
+				elseif (strpos($openid_link->openid, 'aol.com')) $this->data['openid_links'][$index]->provider = 'aol';
+				else $this->data['openid_links'][$index]->provider = 'openid';
 
-				$data['num_of_linked_accounts'] ++;
+				$this->data['num_of_linked_accounts'] ++;
 			}
 		}
 
-		$this->load->view('account/account_linked', $data);
+		$this->load->view('account/account_linked', $this->data);
 	}
 
 }

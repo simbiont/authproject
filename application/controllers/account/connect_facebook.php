@@ -2,7 +2,7 @@
 /*
  * Connect_facebook Controller
  */
-class Connect_facebook extends CI_Controller {
+class Connect_facebook extends MY_Controller {
 
 	/**
 	 * Constructor
