@@ -10,7 +10,8 @@
     #Additionally this will allow you to create a System.php controller,
     #previously this would not have been possible.
     #'system' can be replaced if you have renamed your system folder.
-    RewriteCond $1 !^(index\.php|css|images|js|bootstrap|font|uploads|mobile|fullcalendar|img|robots\.txt|favicon\.ico|resource)
+    RewriteCond %{REQUEST_URI} ^resource.*
+    RewriteRule ^(.*)$ /index.php?/$1 [L]
     RewriteCond %{REQUEST_URI} ^system.*
     RewriteRule ^(.*)$ /index.php?/$1 [L]
 
