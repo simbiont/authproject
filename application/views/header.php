@@ -11,7 +11,9 @@
 				<ul class="nav">
 					<li class="divider-vertical"></li>
 					<?php if ($this->authentication->is_signed_in()) : ?>
-					<li><?php echo anchor('projects', 'My projects'); ?></li>
+					<li class="dropdown"><?php echo anchor('projects', 'My projects'); ?>
+
+					</li>
 					<?php endif; ?>
 				</ul>
 

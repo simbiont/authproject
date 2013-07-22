@@ -27,7 +27,7 @@
 
         }
 
-        public function view( $view = null, $data = array(), $to_string = false ) {
+        public function subview( $view = null, $data = array(), $to_string = false ) {
             return $this->load->view( $view, array_merge_recursive( $this->data, $data ), $to_string );
         }
 
@@ -35,8 +35,8 @@
 
             $master_view = 'master';
 
-            $this->data['subview'] = $this->view( $view, $data, true );
-            $this->view( $master_view, $data );
+            $this->data['subview'] = $this->subview( $view, $data, true );
+            $this->subview( $master_view, $this->data );
 
         }
 

@@ -18,7 +18,8 @@
             unique_names : true,
             filters : [
                 {title : "Image files", extensions : "jpg,gif,png"},
-                {title : "Zip files", extensions : "zip"}
+                {title : "Zip files", extensions : "zip"},
+                {title : "PDF files", extensions : "pdf"},
             ]
         });
 

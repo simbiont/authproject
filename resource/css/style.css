@@ -148,3 +148,31 @@ input.openid {
 .grid_buttons {
   margin-top: 20px;
 }
+
+.project_date {
+  margin-left: 20px;
+}
+
+#tblJQGrid input {
+  width: 88% !important;
+}
+#tblJQGrid select {
+  margin: 0 !important;
+  width: 95% !important;
+}
+#tblJQGrid textarea {
+  margin: 5px 0;
+}
+
+#project_form {
+  margin-top: 10px; 
+}
+#project_name {
+  margin: 0 15px 0 0;  
+}
+#project_list {
+  margin-top: 20px;
+}
+#project_form {
+  display: none;
+}
