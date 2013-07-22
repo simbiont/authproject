@@ -82,7 +82,7 @@
 
 			// }
 			$("#bedata").click(function(){
-				$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true});
+				$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
 			});
 			$("#dedata").click(function(){
 				var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
