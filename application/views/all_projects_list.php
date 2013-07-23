@@ -1,26 +1,27 @@
 <div class="row">
 	<div class="span10 offset1">
+
+		
+		<br>
+		<!-- <input id="delete_all" type="checkbox" name="delete_all"> -->
+		<select id="user_list" class="span10 offset1">
+			<?php 
+				foreach ($list->rows as $user) { ?>
+					<option value="<?= $user->id ?>"><?= $user->username ?></option>
+			<?	}	?>
+		</select>
+		
+
 		<button id="new_project" class="btn btn-primary">Create New Project</button>
 
 		<?php
-		echo form_open('projects/add', $form_attr);
-			echo form_input('project_name', '', $placeholder);
-			echo form_submit($submit_attr);		
-		echo form_close();
+			echo form_open('projects/add', $form_attr);
+				echo form_input('project_name', '', $placeholder);
+				echo form_submit($submit_attr);
+			echo form_close();
 		?>
-		<br>
-		<input id="delete_all" type="checkbox" name="delete_all">
-		<ul id="project_list">
-			<?php 
-				foreach ($list->rows as $project) { ?>
-					<li id="<?= $project->id ?>">
-						<input class="delete_project" type="checkbox" name="delete_project" value="<?= $project->id; ?>">
-						<?= anchor('projects/view/'.$project->id, $project->project_name, 'class="project_link"'); ?>
-						<span class='project_date'>Created: <?= date("Y-m-d", strtotime($project->date)); ?> </span>
-					</li>
-			<?	}	?>
-		</ul>
 
+		<ul id="project_list"></ul>
 		<button id="delete" class="btn btn-danger">Delete</button>
 		<input type="hidden" id="projects_ids" name="projects_ids">
 
@@ -29,8 +30,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		
-
+		getProjects();
 		$('#new_project').click( function() {
 			if ($("#project_form").is(":hidden")) {
 				$("#project_form").show();
@@ -74,6 +74,27 @@
 				}
 			})
 
-		})
+		});
+		$('#user_list').change(function() {
+			getProjects();
+		});
 	});
+	function getProjects() {
+		var userProjectsUrl = 'projects/ajax_user_projects/';
+		var user_id = $('#user_list').val();
+		$.ajax({
+				url: userProjectsUrl,
+				type: 'post',
+				data: {'user_id':user_id},
+				success:function(Response) {
+					$("#project_list").empty();
+					var parsed = $.parseJSON(Response);
+					for (var i = 0; i < parsed.rows.length; i++) {
+						$("#project_list").append("<li id='"+parsed.rows[i].id+"'><a href='projects/view/"+parsed.rows[i].id+"'>"+parsed.rows[i].project_name+"</a></li>");
+					};
+
+
+				}
+			})
+	}
 </script>	

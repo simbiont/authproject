@@ -4,9 +4,18 @@
             <table id="tblJQGrid"></table>
             <div id="divPager"></div>
         </div>
-        <div class="span4 offset1 grid_buttons">            
+        <div class="span5 offset1 grid_buttons">            
             <input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
-            <input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />
+            <input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />            
+        </div>
+        <div class="span4 offset2 grid_buttons">
+        	<?php 
+        		$where = 'projects/csvUpload/' . $this->uri->segment('3');
+        		echo form_open_multipart($where);?>
+		    	<input type="button" id="csvBtn" class="btn btn-primary" value="Import CSV" />
+		    	<input type="file" id="csvUpload" name="csvUpload" />
+        	</form>
+        	<div class="erroeFlashdata"><?php echo $this->session->flashdata('uploadError'); ?></div>
         </div>
 
     </div>
@@ -18,6 +27,16 @@
 		$(document).ready(function() {
 
 			createUserGrid();
+
+			$("#csvBtn").click(function(event){
+				event.preventDefault();
+				if ($("#csvUpload").val() != ''){
+					$(this).parent().submit();					
+				} else {
+					alert("There is nothing to upload");
+					$("#csvUpload").focus();
+				}
+			});
 
 		});
 

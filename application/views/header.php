@@ -12,9 +12,15 @@
 					<li class="divider-vertical"></li>
 					<?php if ($this->authentication->is_signed_in()) : ?>
 					<li class="dropdown"><?php echo anchor('projects', 'My projects'); ?>
-
+						<ul class="dropdown-menu"></ul>
 					</li>
 					<?php endif; ?>
+					<?php //if($super) : ?>
+					<li>
+						<?php echo anchor('users', 'Users'); ?>
+					</li>
+					<?php //endif; ?>
+					
 				</ul>
 
 				<ul class="nav pull-right">
