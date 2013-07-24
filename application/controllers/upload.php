@@ -46,7 +46,7 @@ class Upload extends MY_Controller {
            'date' => $date
         );
 
-        // $this->db->insert('uploads', $data);
+        $this->db->insert('uploads', $data);
         
         move_uploaded_file( $_FILES['file']['tmp_name'], $file_upload_path . '/' . $_FILES['file']['name'] );
 
@@ -100,13 +100,13 @@ class Upload extends MY_Controller {
         $this->load->library('email');
 
         $this->email->from($from, $username);
-        $this->email->to('someone@example.com'); 
+        $this->email->to($from); 
 
         $this->email->subject('New file to project '.$project_name);
         $this->email->message('User '.$username);  
         $this->email->attach($attach);
         $this->email->send();
 
-        echo $this->email->print_debugger();
+        // echo $this->email->print_debugger();
     }
 }
