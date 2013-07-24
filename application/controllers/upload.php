@@ -80,7 +80,8 @@ class Upload extends MY_Controller {
             $attach = $file_upload_path . '/' . $_FILES['file']['name'];
             $this->db->select('project_name');
             $project_name_query = $this->db->get_where('project_list', array( 'id' => $project_id ));
-            $project_name = $project_name_query->result();
+            $project_name_result = $project_name_query->result();
+            $project_name = $project_name_result[0]->project_name;
             $this->mailToAdmin( $username, $from, $to, $project_id, $attach, $project_name );
         }
     }
