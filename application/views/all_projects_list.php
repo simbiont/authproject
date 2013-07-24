@@ -1,8 +1,5 @@
 <div class="row">
 	<div class="span10 offset1">
-
-		
-		<br>
 		<!-- <input id="delete_all" type="checkbox" name="delete_all"> -->
 		<select id="user_list" class="span10 offset1">
 			<?php 
@@ -17,11 +14,14 @@
 		<?php
 			echo form_open('projects/add', $form_attr);
 				echo form_input('project_name', '', $placeholder);
+				echo form_hidden('project_user_id');
 				echo form_submit($submit_attr);
 			echo form_close();
 		?>
 
 		<ul id="project_list"></ul>
+
+
 		<button id="delete" class="btn btn-danger">Delete</button>
 		<input type="hidden" id="projects_ids" name="projects_ids">
 
@@ -91,9 +91,9 @@
 					var parsed = $.parseJSON(Response);
 					for (var i = 0; i < parsed.rows.length; i++) {
 						$("#project_list").append("<li id='"+parsed.rows[i].id+"'><a href='projects/view/"+parsed.rows[i].id+"'>"+parsed.rows[i].project_name+"</a></li>");
+						
 					};
-
-
+					$("input[name='project_user_id']").val(user_id);
 				}
 			})
 	}

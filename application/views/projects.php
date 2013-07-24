@@ -1,114 +1,123 @@
-    <div class="row">
+<div class="row">
+	<ul class="nav nav-tabs">
+		<li class="active">
+			<a href="#project_grid" data-toggle="tab">Project</a>
+			
+		</li>
+		<li>
+			<a href="#files_grid" data-toggle="tab">Files</a>
+			
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div id="project_grid" class="tab-pane active">
+			<div class="span10 offset1">
+				<table id="tblJQGrid"></table>
+				<div id="divPager"></div>
+			</div>
+			<div class="span5 offset1 grid_buttons">            
+				<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
+				<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
+			</div>	
+		</div>	
+		<div id="files_grid" class="tab-pane">
+			<?php echo $this->load->view('upload-form', $this->data); ?>
+			<div class="span5 offset1 grid_buttons">
+				<?php 
+					$where = 'projects/csvUpload/' . $this->uri->segment('3');
+					echo form_open_multipart($where);?>
+					<input type="button" id="csvBtn" class="btn btn-primary" value="Import CSV" />
+					<input type="file" id="csvUpload" name="csvUpload" />
+				</form>
+				<div class="erroeFlashdata"><?php echo $this->session->flashdata('uploadError'); ?></div>
+			</div>
+		</div>
+	</div>
+</div>
 
-        <div class="span10 offset1">
-            <table id="tblJQGrid"></table>
-            <div id="divPager"></div>
-        </div>
-        <div class="span5 offset1 grid_buttons">            
-            <input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
-            <input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />            
-        </div>
-        <div class="span4 offset2 grid_buttons">
-        	<?php 
-        		$where = 'projects/csvUpload/' . $this->uri->segment('3');
-        		echo form_open_multipart($where);?>
-		    	<input type="button" id="csvBtn" class="btn btn-primary" value="Import CSV" />
-		    	<input type="file" id="csvUpload" name="csvUpload" />
-        	</form>
-        	<div class="erroeFlashdata"><?php echo $this->session->flashdata('uploadError'); ?></div>
-        </div>
+<script type="text/javascript">
 
-    </div>
+	var page = '<?php echo $page ?>';
 
-	<script type="text/javascript">
+	$(document).ready(function() {
 
-		var page = '<?php echo $page ?>';
+		createUserGrid();
 
-		$(document).ready(function() {
-
-			createUserGrid();
-
-			$("#csvBtn").click(function(event){
-				event.preventDefault();
-				if ($("#csvUpload").val() != ''){
-					$(this).parent().submit();					
-				} else {
-					alert("There is nothing to upload");
-					$("#csvUpload").focus();
-				}
-			});
-
+		$("#csvBtn").click(function(event){
+			event.preventDefault();
+			if ($("#csvUpload").val() != ''){
+				$(this).parent().submit();					
+			} else {
+				alert("There is nothing to upload");
+				$("#csvUpload").focus();
+			}
 		});
 
-		function createUserGrid() {
+	});
 
-			var projectsDataProviderUrl = 'projects/ajax_json_provider_projects/' + page;
-			var projectsDataEditUrl = 'projects/ajax_json_edit_projects/' + page;
-			var lastsel;
-			xxx = $("#tblJQGrid").jqGrid({
-				url: projectsDataProviderUrl,
-				datatype: "json",
-				height: '100%',
-				width: 1000,	        	
-				colNames:[ 'Service', 'Date', 'Initials','Description','Hours','Rate','Amount' ],
-				colModel:[
-					{name:'service',index:'service', editable:true, width:100, edittype:"select",editoptions:{value:"Test:Test;Some Service:Some Service;Site:Site"}},
+	function createUserGrid() {
 
-					{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100,editable:true, editoptions:{
-						dataInit:function(el){ 
-	                        $(el).datepicker({dateFormat:'yy-mm-dd', style:""}); 
-	                	},
-	                	defaultValue: function(){ 
-		                    var currentTime = new Date(); 
-		                    var month = parseInt(currentTime.getMonth() + 1); 
-		                    month = month <= 9 ? "0"+month : month; 
-		                    var day = currentTime.getDate(); 
-		                    day = day <= 9 ? "0"+day : day; 
-		                    var year = currentTime.getFullYear(); 
-		                    return year+"-"+month + "-"+day; 
-	                	}
-					}},
-					{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
-					{name:'description',index:'description', editable:true, width:180, align:"right", edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
-					{name:'hours',index:'hours', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
-					{name:'rate',index:'rate', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
-					{name:'amount',index:'amount', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}}
+		var projectsDataProviderUrl = 'projects/ajax_json_provider_projects/' + page;
+		var projectsDataEditUrl = 'projects/ajax_json_edit_projects/' + page;
+		var lastsel;
+		xxx = $("#tblJQGrid").jqGrid({
+			url: projectsDataProviderUrl,
+			datatype: "json",
+			height: '100%',
+			width: 1000,	        	
+			colNames:[ 'Service', 'Date', 'Initials','Description','Hours','Rate','Amount' ],
+			colModel:[
+				{name:'service',index:'service', editable:true, width:100, edittype:"select",editoptions:{value:"Test:Test;Some Service:Some Service;Site:Site"}},
 
-				],
-				
-				onSelectRow: function(id){
-					if(id && id!==lastsel){
-						$('#tblJQGrid').jqGrid('restoreRow',lastsel);
-						$('#tblJQGrid').jqGrid('editRow',id,true);
-						lastsel=id;
+				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100,editable:true, editoptions:{
+					dataInit:function(el){ 
+						$(el).datepicker({dateFormat:'yy-mm-dd', style:""}); 
+					},
+					defaultValue: function(){ 
+						var currentTime = new Date(); 
+						var month = parseInt(currentTime.getMonth() + 1); 
+						month = month <= 9 ? "0"+month : month; 
+						var day = currentTime.getDate(); 
+						day = day <= 9 ? "0"+day : day; 
+						var year = currentTime.getFullYear(); 
+						return year+"-"+month + "-"+day; 
 					}
-				},
+				}},
+				{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
+				{name:'description',index:'description', editable:true, width:180, align:"right", edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
+				{name:'hours',index:'hours', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
+				{name:'rate',index:'rate', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
+				{name:'amount',index:'amount', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}}
 
-				viewrecords: true,
-				sortorder: "desc",
-				rowNum: 5,
-				rowList:[ 10,20,30 ],
-				loadonce: false,
-				pager: '#divPager',
-				gridview: true,
-				editurl: projectsDataEditUrl,
-				caption: "Projects List" 
-			});
-			// function pickdates(id){
-			// 	$("#"+id+"_date","#tblJQGrid").datepicker({dateFormat:"yy-mm-dd"});
+			],
+			
+			onSelectRow: function(id){
+				if(id && id!==lastsel){
+					$('#tblJQGrid').jqGrid('restoreRow',lastsel);
+					$('#tblJQGrid').jqGrid('editRow',id,true);
+					lastsel=id;
+				}
+			},
 
-			// 	$("#date").datepicker({dateFormat:"yy-mm-dd", showOn:'button'});
+			viewrecords: true,
+			sortorder: "desc",
+			rowNum: 10,
+			rowList:[ 10,20,30 ],
+			loadonce: false,
+			pager: '#divPager',
+			gridview: true,
+			editurl: projectsDataEditUrl,
+			caption: "Projects List" 
+		});
+		$("#bedata").click(function(){
+			$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
+		});
+		$("#dedata").click(function(){
+			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
+			if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+			else alert("Please Select Row to delete!");
+		});
+		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
 
-			// }
-			$("#bedata").click(function(){
-				$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
-			});
-			$("#dedata").click(function(){
-				var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
-				if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
-				else alert("Please Select Row to delete!");
-			});
-			$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
-
-		}
-	</script>
+	}
+</script>

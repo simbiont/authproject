@@ -24,11 +24,6 @@ class Connect_openid extends MY_Controller {
 		// Enable SSL?
 		maintain_ssl($this->config->item("ssl_enabled"));
 
-		// Retrieve sign in user
-		if ($this->authentication->is_signed_in())
-		{
-			$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-		}
 		//$this->data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
 
 		// Get OpenID store object

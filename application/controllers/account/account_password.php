@@ -32,10 +32,7 @@ class Account_password extends MY_Controller {
 		{
 			redirect('account/sign_in/?continue='.urlencode(base_url().'account/account_password'));
 		}
-
-		// Retrieve sign in user
-		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-
+		
 		// No access to users without a password
 		if ( ! $this->data['account']->password) redirect('');
 

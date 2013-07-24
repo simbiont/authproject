@@ -26,7 +26,6 @@ class Users extends MY_Controller {
 			return $this->access_denied();
 		}
 
-		$this->data['super'] = $this->is_super();
 		$this->data['page'] = $page;
 
 		$this->master_view( 'user_list' );

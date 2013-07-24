@@ -11,12 +11,7 @@ class Home extends MY_Controller {
 	function index()
 	{
 		maintain_ssl();
-
-		if ($this->authentication->is_signed_in()) {
-			$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-			$this->data['super'] = $this->is_super();
-		}
-
+		
 		$this->load->view('home', isset($this->data) ? $this->data : NULL);
 	}
 

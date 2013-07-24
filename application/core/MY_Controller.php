@@ -8,6 +8,7 @@
 
             if ( $this->authentication->is_signed_in() ) {
                 $this->data['account'] = $this->account_model->get_by_id( $this->session->userdata( 'account_id' ) );
+                $this->data['account']->is_super = $this->is_super();                
             }
         }
 
@@ -27,7 +28,7 @@
 
         }
 
-        public function subview( $view = null, $data = array(), $to_string = false ) {
+        public function subview( $view = null, $data = array(), $to_string = false ) {            
             return $this->load->view( $view, array_merge_recursive( $this->data, $data ), $to_string );
         }
 

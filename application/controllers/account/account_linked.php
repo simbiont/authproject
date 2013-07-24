@@ -33,9 +33,6 @@ class Account_linked extends MY_Controller {
 			redirect('account/sign_in/?continue='.urlencode(base_url().'account/account_linked'));
 		}
 
-		// Retrieve sign in user
-		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
-
 		// Delete a linked account
 		if ($this->input->post('facebook_id') || $this->input->post('twitter_id') || $this->input->post('openid'))
 		{

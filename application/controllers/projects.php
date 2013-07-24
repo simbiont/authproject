@@ -24,7 +24,6 @@ class Projects extends MY_Controller {
 
 				$users_list = $this->projects_model->getAllUsersList();
 
-				$this->data['super'] = $this->is_super();
 				$this->data['list'] = $users_list;
 
 				$this->load->helper('form');
@@ -61,7 +60,12 @@ class Projects extends MY_Controller {
 			// TODO: add new project
 			$this->load->model('projects_model');
 			$projectName = $this->input->post('project_name');
-			// $user_id = $this->session->userdata('account_id');
+			$project_user_id = $this->input->post('project_user_id');
+			if( $project_user_id ) {
+				$user_id = $this->input->post('project_user_id');
+			} else {
+				$user_id = $this->session->userdata('account_id');
+			}
 			$date =  date('Y-m-d H:i:s');
 			$this->projects_model->addNewProject($projectName, $user_id, $date);
 			redirect('projects');
@@ -120,7 +124,7 @@ class Projects extends MY_Controller {
 		} else {
 			return $this->access_denied();
 		}
-		$this->data['super'] = $this->is_super();
+
 		$this->data['page'] = $page;
 		$this->master_view( 'projects' );
 
@@ -135,42 +139,11 @@ class Projects extends MY_Controller {
 	}
 
 
-	public function csvUpload($page = 0){
-		$this->load->model('projects_model');		
-		$this->load->library('Csv_parse');
-
-		$config['upload_path'] = './resource/upload/';
-		$config['allowed_types'] = '*';
-		// $config['file_name'] = 'csv_upload_'. date("m-d-y").'.csv';
-		$this->load->library('upload', $config);
-
-		if (!$this->upload->do_upload('csvUpload')) {
-			$this->session->set_flashdata('uploadError', $this->upload->display_errors());
-			redirect('projects');
-		} else {
-			$data = $this->upload->data();			
-			$csv = new Csv_parse;
-			$csv->load($data['full_path']);
-			$headers = $csv->getHeaders();
-			$count   = $csv->countRows(); // total rows
-			$user_id = $this->session->userdata('account_id');
-			for ($i=0; $i < $count; $i++) {
-				$row = $csv->getRow($i);
-				$data = array(
-					'service' => $row[0],
-					'date' => $row[1],
-					'initials' => $row[2],
-					'description' => $row[3],
-					'hours' => $row[4],
-					'rate' => $row[5],
-					'amount' => $row[6],
-					'oper' => 'add'
-				);
-				$this->projects_model->editProjects($data, $user_id, $page);			
-			}
-			redirect('projects/view/'.$page);
-		}
-
-	}
+	
+	
+	// Check User Role
+	// function checkPermissions( $user_id = null ) {
+		
+	// }
 
 } ?>

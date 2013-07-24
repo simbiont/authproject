@@ -11,14 +11,14 @@
 		<br>
 		<input id="delete_all" type="checkbox" name="delete_all">
 		<ul id="project_list">
-			<?php 
-				foreach ($list->rows as $project) { ?>
-					<li id="<?= $project->id ?>">
-						<input class="delete_project" type="checkbox" name="delete_project" value="<?= $project->id; ?>">
-						<?= anchor('projects/view/'.$project->id, $project->project_name, 'class="project_link"'); ?>
-						<span class='project_date'>Created: <?= date("Y-m-d", strtotime($project->date)); ?> </span>
-					</li>
-			<?	}	?>
+		<?php 
+		foreach ($list->rows as $project) { ?>
+			<li id="<?= $project->id ?>">
+				<input class="delete_project" type="checkbox" name="delete_project" value="<?= $project->id; ?>">
+				<?= anchor('projects/view/'.$project->id, $project->project_name, 'class="project_link"'); ?>
+				<span class='project_date'>Created: <?= date("Y-m-d", strtotime($project->date)); ?> </span>
+			</li>
+		<?	}	?>
 		</ul>
 
 		<button id="delete" class="btn btn-danger">Delete</button>

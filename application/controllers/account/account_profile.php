@@ -34,7 +34,6 @@ class Account_profile extends MY_Controller {
 		}
 
 		// Retrieve sign in user
-		$this->data['account'] = $this->account_model->get_by_id($this->session->userdata('account_id'));
 		$this->data['account_details'] = $this->account_details_model->get_by_account_id($this->session->userdata('account_id'));
 		
 		// Retrieve user's gravatar if available
