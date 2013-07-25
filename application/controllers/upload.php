@@ -61,9 +61,9 @@ class Upload extends MY_Controller {
             for ($i=0; $i < $count; $i++) {
                 $row = $csv->getRow($i);
                 $data = array(
-                    'service' => $row[0],
+                    'initials' => $row[0],
                     'date' => $row[1],
-                    'initials' => $row[2],
+                    'service' => $row[2],
                     'description' => $row[3],
                     'hours' => $row[4],
                     'rate' => $row[5],
@@ -74,9 +74,11 @@ class Upload extends MY_Controller {
             }
         } 
         else {
+            $this->load->model('settings_model');
+                
             $from = $this->data['account']->email;
             $username = $this->data['account']->username;
-            $to = "";
+            $to = $this->settings_model->getAdminMail();
             $attach = $file_upload_path . '/' . $_FILES['file']['name'];
             $this->db->select('project_name');
             $project_name_query = $this->db->get_where('project_list', array( 'id' => $project_id ));
@@ -87,7 +89,7 @@ class Upload extends MY_Controller {
     }
 
     public function check_permission( $user_id = null, $project_id = null ) {
-        $query = $this->db->get_where('projects', array('project_id' => $project_id, 'a3m_user_id' => $user_id));
+        $query = $this->db->get_where('project_list', array('id' => $project_id, 'user_id' => $user_id));
         $result = $query->result();
 
         if (empty($result)) {
@@ -101,7 +103,7 @@ class Upload extends MY_Controller {
         $this->load->library('email');
 
         $this->email->from($from, $username);
-        $this->email->to($from); 
+        $this->email->to($to); 
 
         $this->email->subject('New file to project '.$project_name);
         $this->email->message('User '.$username);  

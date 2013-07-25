@@ -34,6 +34,7 @@ class Projects extends MY_Controller {
 				$this->master_view( 'all_projects_list' );
 			} else {
 				$this->load->model('projects_model');
+				
 				$projects_list = $this->projects_model->getProjectsList( $user_id );
 				$this->data['super'] = $this->is_super();
 				$this->data['list'] = $projects_list;
@@ -117,15 +118,30 @@ class Projects extends MY_Controller {
 			if( !$user_id ) {
 				$user_id = $this->session->userdata('account_id');
 			   
-			} else {
-				// TODO: check if not an admin prevent projects displaying
-
 			}
+			$permissions = $this->check_permission($user_id, $page);
+
+	        if( !$page ) {
+	            return $this->access_denied();
+	        }
+
+	        if ( !$this->is_super() && !$permissions) {
+	            return $this->access_denied();
+	        }
 		} else {
 			return $this->access_denied();
 		}
+		$this->load->model('projects_model');
+		$this->load->model('settings_model');
 
 		$this->data['page'] = $page;
+		$dropdown_array = json_decode($this->projects_model->getDropdown(), true);
+		$dropdown = "";
+		foreach ($dropdown_array as $key => $value) {
+			$dropdown .= $key.":".$value.";";
+		}
+		$this->data['dropdown'] = substr_replace($dropdown ,"",-1);
+		$this->data['fields_num'] = $this->settings_model->getFieldsNum();
 		$this->master_view( 'projects' );
 
 	}
@@ -138,12 +154,16 @@ class Projects extends MY_Controller {
 		echo json_encode($this->projects_model->getProjectsList($id));
 	}
 
-
-	
-	
 	// Check User Role
-	// function checkPermissions( $user_id = null ) {
-		
-	// }
+	public function check_permission( $user_id = null, $project_id = null ) {
+        $query = $this->db->get_where('project_list', array('id' => $project_id, 'user_id' => $user_id));
+        $result = $query->result();
+
+        if (empty($result)) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 
 } ?>

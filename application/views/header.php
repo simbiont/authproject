@@ -19,6 +19,9 @@
 						<li>
 							<?php echo anchor('users', 'Users'); ?>
 						</li>
+						<li>
+							<?php echo anchor('settings', 'Settings'); ?>
+						</li>
 						<?php endif; ?>
 					<?php endif; ?>
 				</ul>

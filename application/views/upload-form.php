@@ -17,7 +17,6 @@
     function attachCallbacks(uploader) {
         uploader.bind('FileUploaded', function(up, file, response){
             // var response = jQuery.parseJSON(response.response);
-            console.log(response.response);
             if( response == "1" ) {
                 alert('Huge Filesize');
             }

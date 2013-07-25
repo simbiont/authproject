@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="span10 offset1">
+	<div class="span10">
 		<button id="new_project" class="btn btn-primary">Create New Project</button>
 
 		<?php
@@ -9,19 +9,33 @@
 		echo form_close();
 		?>
 		<br>
-		<input id="delete_all" type="checkbox" name="delete_all">
+		
 		<ul id="project_list">
+
+		<?php if (!empty($list->rows)): ?>
+
+			<li><input id="delete_all" class="delete_project" type="checkbox" name="delete_all">  Select all</li>
+		<?php endif; ?>
+		
 		<?php 
 		foreach ($list->rows as $project) { ?>
+
 			<li id="<?= $project->id ?>">
 				<input class="delete_project" type="checkbox" name="delete_project" value="<?= $project->id; ?>">
 				<?= anchor('projects/view/'.$project->id, $project->project_name, 'class="project_link"'); ?>
 				<span class='project_date'>Created: <?= date("Y-m-d", strtotime($project->date)); ?> </span>
 			</li>
+
 		<?	}	?>
+
 		</ul>
 
+		<?php if (!empty($list->rows)): ?>
+		
 		<button id="delete" class="btn btn-danger">Delete</button>
+
+		<?php endif; ?>
+
 		<input type="hidden" id="projects_ids" name="projects_ids">
 
 	</div>

@@ -111,5 +111,9 @@
 			return true;
 		}
 
+		public function getDropdown() {
+			return $list = $this->db->get_where('admin_settings', array('id' => '1'))->row()->dropdown_list;
+		}
+
 	}
 ?>

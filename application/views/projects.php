@@ -1,57 +1,51 @@
 <div class="row">
-	<ul class="nav nav-tabs">
-		<li class="active">
-			<a href="#project_grid" data-toggle="tab">Project</a>
-			
-		</li>
-		<li>
-			<a href="#files_grid" data-toggle="tab">Files</a>
-			
-		</li>
-	</ul>
-	<div class="tab-content">
-		<div id="project_grid" class="tab-pane active">
-			<div class="span10 offset1">
+
+	<div class="span10 offset1">
+
+		<ul class="nav nav-tabs">
+			<li class="active">
+				<a href="#project_grid" data-toggle="tab">Project</a>
+				
+			</li>
+			<li>
+				<a href="#files_grid" data-toggle="tab">Files</a>
+				
+			</li>
+		</ul>
+
+		<div class="tab-content">
+
+			<div id="project_grid" class="tab-pane active">
+
 				<table id="tblJQGrid"></table>
 				<div id="divPager"></div>
+
+				<div class="span5 grid_buttons">            
+					<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
+					<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
+				</div>
+
 			</div>
-			<div class="span5 offset1 grid_buttons">            
-				<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
-				<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
-			</div>	
-		</div>	
-		<div id="files_grid" class="tab-pane">
-			<?php echo $this->load->view('upload-form', $this->data); ?>
-			<div class="span5 offset1 grid_buttons">
-				<?php 
-					$where = 'projects/csvUpload/' . $this->uri->segment('3');
-					echo form_open_multipart($where);?>
-					<input type="button" id="csvBtn" class="btn btn-primary" value="Import CSV" />
-					<input type="file" id="csvUpload" name="csvUpload" />
-				</form>
-				<div class="erroeFlashdata"><?php echo $this->session->flashdata('uploadError'); ?></div>
+
+			<div id="files_grid" class="tab-pane">
+				<?php echo $this->load->view('upload-form', $this->data); ?>
 			</div>
+
 		</div>
+
 	</div>
+
 </div>
 
 <script type="text/javascript">
 
 	var page = '<?php echo $page ?>';
+	var dropdown = '<?php echo $dropdown ?>';
+	var fields_num = '<?php echo $fields_num ?>';
 
 	$(document).ready(function() {
 
 		createUserGrid();
-
-		$("#csvBtn").click(function(event){
-			event.preventDefault();
-			if ($("#csvUpload").val() != ''){
-				$(this).parent().submit();					
-			} else {
-				alert("There is nothing to upload");
-				$("#csvUpload").focus();
-			}
-		});
 
 	});
 
@@ -65,13 +59,13 @@
 			datatype: "json",
 			height: '100%',
 			width: 1000,	        	
-			colNames:[ 'Service', 'Date', 'Initials','Description','Hours','Rate','Amount' ],
+			colNames:[ 'Initials', 'Date', 'Service','Description','Hours','Rate','Amount' ],
 			colModel:[
-				{name:'service',index:'service', editable:true, width:100, edittype:"select",editoptions:{value:"Test:Test;Some Service:Some Service;Site:Site"}},
+				{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
 
 				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100,editable:true, editoptions:{
 					dataInit:function(el){ 
-						$(el).datepicker({dateFormat:'yy-mm-dd', style:""}); 
+						$(el).datepicker({dateFormat:'yy-mm-dd'}); 
 					},
 					defaultValue: function(){ 
 						var currentTime = new Date(); 
@@ -83,11 +77,12 @@
 						return year+"-"+month + "-"+day; 
 					}
 				}},
-				{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
+				{name:'service',index:'service', editable:true, width:100, edittype:"select",editoptions:{value:dropdown}},
+				
 				{name:'description',index:'description', editable:true, width:180, align:"right", edittype:"textarea", editoptions:{rows:"2",cols:"30"}},
-				{name:'hours',index:'hours', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
-				{name:'rate',index:'rate', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}},		
-				{name:'amount',index:'amount', width:80, editable:true, align:"right", editoptions:{size:"10",maxlength:"30"}}
+				{name:'hours',index:'hours', width:80, editable:true, align:"right", editoptions:{size:"10"}},		
+				{name:'rate',index:'rate', width:80, editable:true, align:"right", editoptions:{size:"10"}},		
+				{name:'amount',index:'amount', width:80, editable:true, align:"right", editoptions:{size:"10"}}
 
 			],
 			
@@ -101,8 +96,8 @@
 
 			viewrecords: true,
 			sortorder: "desc",
-			rowNum: 10,
-			rowList:[ 10,20,30 ],
+			rowNum: fields_num,
+			rowList:[ fields_num,fields_num*2,fields_num*3 ],
 			loadonce: false,
 			pager: '#divPager',
 			gridview: true,

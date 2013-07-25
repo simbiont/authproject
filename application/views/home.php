@@ -18,6 +18,7 @@
 					<li><?= anchor('projects', 'Projects'); ?></li>
 					<?php if( $account->is_super ) : ?>
 					<li><?= anchor('users', 'Users');?></li>
+					<li><?= anchor('settings', 'Settings');?></li>
 					<?php endif;
 				else :
 				    echo anchor('account/sign_in', lang('website_sign_in')); 
