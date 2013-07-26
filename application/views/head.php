@@ -22,6 +22,7 @@
 
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.8.13/themes/redmond/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/jqGrid/css/ui.jqgrid.css" />
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/jquery.jqGrid.js"></script>
 
 <!-- upload -->
@@ -30,6 +31,7 @@
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/plupload/js/plupload.full.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
 <!-- upload -->
+
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/css/style.css"/>
 
 <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
