@@ -22,7 +22,9 @@ class Projects extends MY_Controller {
 			if ($this->is_super()) {
 				$this->load->model('projects_model');
 
-				$users_list = $this->projects_model->getAllUsersList();
+
+
+				$users_list = $this->projects_model->getAllUsersList($user_id);
 
 				$this->data['list'] = $users_list;
 

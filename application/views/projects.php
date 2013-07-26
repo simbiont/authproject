@@ -48,7 +48,7 @@
 			colModel:[
 				{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
 
-				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100,editable:true, editoptions:{
+				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100, editoptions:{
 					dataInit:function(el){ 
 						$(el).datepicker({dateFormat:'yy-mm-dd'}); 
 					},
@@ -96,7 +96,7 @@
 			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
 			if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
 			else alert("Please Select Row to delete!");
-			
+
 		});
 		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
 

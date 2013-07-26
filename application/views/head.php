@@ -18,8 +18,7 @@
 
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.8.13/themes/redmond/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/jqGrid/css/ui.jqgrid.css" />
-
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.base.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.common.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.formedit.js"></script>
@@ -31,6 +30,8 @@
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.custom.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.tbltogrid.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.import.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/jquery.fmatter.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/JsonXml.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.jqueryui.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.filter.js"></script>
 
