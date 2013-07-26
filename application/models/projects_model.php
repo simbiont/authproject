@@ -91,12 +91,12 @@
 			return $projectsList;
 
 		}
-		public function getAllUsersList() {
+		public function getAllUsersList( $id = 0 ) {
 
 			$UsersList = (object) array();
 			
 			$UsersList->rows = array();
-			$users = $this->db->get('a3m_account');
+			$users = $this->db->get_where('a3m_account', array( 'id !=' => $id ));
 
 			foreach ($users->result() as $user) {
 				$UsersList->rows[] = $user;
