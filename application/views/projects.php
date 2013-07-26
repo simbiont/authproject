@@ -1,36 +1,21 @@
 <div class="row">
 
 	<div class="span10 offset1">
+		<h2><?= $title ?></h2>
+		<div id="project_grid" class="clearfix">
 
-		<ul class="nav nav-tabs">
-			<li class="active">
-				<a href="#project_grid" data-toggle="tab">Project</a>
-				
-			</li>
-			<li>
-				<a href="#files_grid" data-toggle="tab">Files</a>
-				
-			</li>
-		</ul>
+			<table id="tblJQGrid"></table>
+			<div id="divPager"></div>
 
-		<div class="tab-content">
-
-			<div id="project_grid" class="tab-pane active">
-
-				<table id="tblJQGrid"></table>
-				<div id="divPager"></div>
-
-				<div class="span5 grid_buttons">            
-					<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
-					<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
-				</div>
-
+			<div class="span5 grid_buttons">            
+				<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
+				<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
 			</div>
 
-			<div id="files_grid" class="tab-pane">
-				<?php echo $this->load->view('upload-form', $this->data); ?>
-			</div>
+		</div>
 
+		<div id="files_grid">
+			<?php echo $this->load->view('upload-form', $this->data); ?>
 		</div>
 
 	</div>
@@ -111,6 +96,7 @@
 			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
 			if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
 			else alert("Please Select Row to delete!");
+			
 		});
 		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
 

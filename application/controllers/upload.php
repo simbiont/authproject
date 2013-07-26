@@ -24,8 +24,7 @@ class Upload extends MY_Controller {
             return false;
         } 
         if ( ! in_array($_FILES['file']['type'], array('application/zip', "image/jpeg", "image/png", "application/pdf", "text/csv"))) {
-            print_r( $_FILES['file']['type'] );
-            echo "Wrong file type";
+            echo "file_type";
             return false;
         }
 
@@ -70,8 +69,10 @@ class Upload extends MY_Controller {
                     'amount' => $row[6],
                     'oper' => 'add'
                 );
-                $this->projects_model->editProjects($data, $user_id, $project_id);            
+                $this->projects_model->editProjects($data, $user_id, $project_id);
+                     
             }
+            echo "reload";
         } 
         else {
             $this->load->model('settings_model');
@@ -84,7 +85,13 @@ class Upload extends MY_Controller {
             $project_name_query = $this->db->get_where('project_list', array( 'id' => $project_id ));
             $project_name_result = $project_name_query->result();
             $project_name = $project_name_result[0]->project_name;
-            $this->mailToAdmin( $username, $from, $to, $project_id, $attach, $project_name );
+            $send = $this->mailToAdmin( $username, $from, $to, $project_id, $attach, $project_name );
+            if( $send ) {
+                echo "upload";
+            } else {
+                echo "failed";
+            }
+
         }
     }
 
@@ -108,7 +115,7 @@ class Upload extends MY_Controller {
         $this->email->subject('New file to project '.$project_name);
         $this->email->message('User '.$username);  
         $this->email->attach($attach);
-        $this->email->send();
+        return $this->email->send();
 
         // echo $this->email->print_debugger();
     }

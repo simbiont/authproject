@@ -68,8 +68,8 @@ class Projects extends MY_Controller {
 				$user_id = $this->session->userdata('account_id');
 			}
 			$date =  date('Y-m-d H:i:s');
-			$this->projects_model->addNewProject($projectName, $user_id, $date);
-			redirect('projects');
+			$project_id = $this->projects_model->addNewProject($projectName, $user_id, $date);
+			redirect('projects/view/'.$project_id);
 		}
 
 	}
@@ -133,7 +133,7 @@ class Projects extends MY_Controller {
 		}
 		$this->load->model('projects_model');
 		$this->load->model('settings_model');
-
+		$this->data['title'] = $this->projects_model->getTitle($page);
 		$this->data['page'] = $page;
 		$dropdown_array = json_decode($this->projects_model->getDropdown(), true);
 		$dropdown = "";

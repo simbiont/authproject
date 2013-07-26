@@ -199,3 +199,10 @@ input[type="checkbox"] {
 .ui-jqgrid .ui-pg-selbox {
   height: 21px;
 }
+.ui-jqgrid .ui-jqgrid-pager {
+  height: 28px;
+}
+
+#files_grid {
+  margin-top: 30px;
+}

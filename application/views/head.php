@@ -20,8 +20,6 @@
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/jqGrid/css/ui.jqgrid.css" />
 
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
-
-
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.base.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.common.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.formedit.js"></script>
