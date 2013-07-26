@@ -22,19 +22,19 @@
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/jquery.jqGrid.js"></script>
 
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.base.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.common.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.formedit.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.inlinedit.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.celledit.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.subgrid.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.treegrid.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.grouping.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.custom.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.tbltogrid.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.import.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.jqueryui.js"></script>
-<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.filter.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.base.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.common.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.formedit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.inlinedit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.celledit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.subgrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.treegrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.grouping.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.tbltogrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.import.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.jqueryui.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/grid.filter.js"></script>
 
 
 
