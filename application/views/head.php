@@ -10,20 +10,40 @@
 
 <link rel="shortcut icon" href="<?php echo base_url(); ?>favicon.ico"/>
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/bootstrap/css/bootstrap.min.css"/>
-
-
 <link href="<?php echo base_url().RES_DIR; ?>/bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/js/jquery-1.7.2.min.js"></script>
-
-
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/bootstrap/js/bootstrap.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 
 <link type="text/css" rel="stylesheet" href="http://code.jquery.com/ui/1.8.13/themes/redmond/jquery-ui.css" />
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/jqGrid/css/ui.jqgrid.css" />
+
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/js/i18n/grid.locale-en.js" type="text/javascript"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/jquery.jqGrid.js"></script>
+
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.base.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.common.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.formedit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.inlinedit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.celledit.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.subgrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.treegrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.grouping.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.custom.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.tbltogrid.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.import.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.jqueryui.js"></script>
+<script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/jqGrid/grid.filter.js"></script>
+
+
+
+
+
+
+
+
+
 
 <!-- upload -->
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/plupload/js/jquery.plupload.queue/css/jquery.plupload.queue.css" />
