@@ -39,8 +39,6 @@ class Users extends MY_Controller {
 			// $this->data['account'] = $this->account_model->get_by_id( $this->session->userdata('account_id') );
 		}
 
-		// TODO: add new user
-
 	}
 
 	public function ajax_json_provider_users( $page = 0 ) {
@@ -78,39 +76,10 @@ class Users extends MY_Controller {
 			$this->account_model->set_role($newUserId, $role_id = 2);
 		} elseif($oper == "edit") {
 			$this->users_model->editUser( $username, $email, $id );
-		} elseif ($oper == "delete") {
-			# code...
+		} elseif ($oper == "del") {
+			$this->users_model->deleteUser($id);
 		}
 	}
 
-	public function view( $page = 0, $user_id = null ) {
-		
-
-		if ($this->authentication->is_signed_in()) {
-			if( !$user_id ) {
-				$user_id = $this->session->userdata('account_id');
-			   
-			} else {
-				// TODO: check if not an admin prevent users displaying
-
-			}
-		} else {
-			return $this->access_denied();
-		}
-		$this->data['page'] = $page;
-		$this->master_view( 'users' );
-
-	}
-
-	public function ajax_delete_users() {
-		$this->load->model('users_list_model');
-		$userIds = $this->input->post('users_ids');
-		$array = explode(",", $userIds);
-		foreach ($array as $key => $value) {
-			$this->users_list_model->deleteuser($value);
-		}
-
-		echo json_encode($userIds);
-	}
 
 } ?>

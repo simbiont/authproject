@@ -67,7 +67,7 @@
 			}
 		}
 		$("#bedata").click(function(){
-			$("#tblJQGrid").jqGrid('editGridRow',"new",{ height:'auto', width:'auto',reloadAfterSubmit:true, recreateForm:false, closeAfterAdd:false, afterSubmit : function(response) { alert(response.responseText); return false;}});
+			$("#tblJQGrid").jqGrid('editGridRow',"new",{ height:'auto', width:'auto',reloadAfterSubmit:true, recreateForm:false, closeAfterAdd:false, afterSubmit : function(response) { if(response.responseText != "") alert(response.responseText); return false;}});
 		});
 		$("#dedata").click(function(){
 			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');

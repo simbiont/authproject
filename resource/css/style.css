@@ -195,3 +195,7 @@ input[type="checkbox"] {
 .select_label {
   margin-top: 20px;
 }
+
+.ui-jqgrid .ui-pg-selbox {
+  height: 21px;
+}

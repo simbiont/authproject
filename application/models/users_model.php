@@ -28,9 +28,10 @@
 
 		}
 
-		public function deleteUser( $username = null, $email = null, $id = 0 ) {
+		public function deleteUser( $id = 0 ) {
 
-			$this->db->update('a3m_account', array('username' => $username, 'email' => $email), array('id' => $id));
+			$this->db->delete('a3m_account', array('id' => $id));
+			$this->db->delete('a3m_rel_account_role', array('account_id' => $id));			
 
 		}
 
