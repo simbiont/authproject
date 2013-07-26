@@ -14,7 +14,7 @@
             url : base+'upload/processing/<?php echo $page; ?>',
             max_file_size : '10mb',
             unique_names : true,
-            preinit: attachCallbacks,
+            init: attachCallbacks,
         });
 
     });
@@ -31,8 +31,9 @@
                 $('#alarm').append("<div class='alert alert-error'>Email sending failed. Try again.</div>");
             } else if (response.response == "file_type") {
                 $('#alarm').append("<div class='alert alert-error'>Wrong file type</div>");                
-            }
-
+            }  
+            $('.plupload_buttons').show();
+            $('.plupload_upload_status').hide();
         });
     }
 

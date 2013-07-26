@@ -6,26 +6,25 @@
 
 		}
 
-		public function getProjects( $is_super = FALSE, $page = 0, $user_id = null, $row_page = 0, $perPage = 0, $sortingRow = null, $sortOrder = 'asc' ) {
+		public function getTitle( $id = 0 ) {
+			return $list = $this->db->get_where('project_list', array('id' => $id))->row()->project_name;
+		}
+
+		public function getProjects( $is_super = FALSE, $page = 0, $row_page = 0, $perPage = 0, $sortingRow = null, $sortOrder = 'asc' ) {
 
 			$projectsList = (object) array();
 			
 			$projectsList->rows = array();
 			if( $sortingRow != "" )
 				$this->db->order_by( $sortingRow, $sortOrder );
-			if( $is_super ) {
-				$projects = $this->db->get_where('projects', array( 'project_id' => "$page" ), $perPage, $perPage*($row_page-1));
-			} else {
-				$projects = $this->db->get_where('projects', array( 'a3m_user_id' => "$user_id", 'project_id' => "$page" ), $perPage, $perPage*($row_page-1));
-			}
-			
 
+			$projects = $this->db->get_where('projects', array( 'project_id' => "$page" ), $perPage, $perPage*($row_page-1));
 			foreach ($projects->result() as $project) {
 				$projectsList->rows[] = $project;
 			}
 
 			$projectsList->page = $row_page;
-			$this->db->like(array( 'a3m_user_id' => "$user_id", 'project_id' => "$page" ));
+			$this->db->like(array( 'project_id' => "$page" ));
 			$this->db->from('projects');
 
 			$projectsList->records = $this->db->count_all_results();
@@ -71,6 +70,7 @@
 			$newProject['date'] = $date;
 			$newProject['file_id'] = $file_id;
 			$this->db->insert('project_list', $newProject);
+			return $this->db->insert_id();
 		}
 
 		public function getProjectsList( $user_id = 0 ) {

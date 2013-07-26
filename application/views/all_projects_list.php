@@ -18,9 +18,7 @@
 				echo form_submit($submit_attr);
 			echo form_close();
 		?>
-		<?php if (!empty($list->rows)): ?>
-			<label for="delete_all" class="select_label"><input id="delete_all" class="delete_project" type="checkbox" name="delete_all">Select all</label>
-		<?php endif; ?>
+
 		<ul id="project_list"></ul>
 
 
@@ -40,7 +38,7 @@
 				$("#project_form").hide();
 			}
 		});
-		$('#delete_all').change(function() {
+		$('#delete_all').live('change', function() {
 			if($(this).is(":checked")) {
 				$(".delete_project").each(function() {
 					$(this).attr('checked','checked');
@@ -91,6 +89,8 @@
 				success:function(Response) {
 					$("#project_list").empty();
 					var parsed = $.parseJSON(Response);
+					if(parsed.rows.length > 0)
+						$("#project_list").append('<li class="select_label"><input id="delete_all" class="delete_project" type="checkbox" name="delete_all">Select all</li>');
 					for (var i = 0; i < parsed.rows.length; i++) {
 
 						$("#project_list").append("<li id='"+parsed.rows[i].id+"'><input class='delete_project' type='checkbox' name='delete_project' value='"+parsed.rows[i].id+"'><a href='projects/view/"+parsed.rows[i].id+"'>"+parsed.rows[i].project_name+"</a><span class='project_date'>Created: "+parsed.rows[i].date+" </span></li>");

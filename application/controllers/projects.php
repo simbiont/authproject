@@ -99,14 +99,13 @@ class Projects extends MY_Controller {
 	// Get project fields
 	public function ajax_json_provider_projects( $page = 0 ) {
 		$this->load->model('projects_model');
-		$user_id = $this->session->userdata('account_id');
 		$row_page = $this->input->get('page');
 		$limit = $this->input->get('rows');
 		$sidx = $this->input->get('sidx');
 		$sord = $this->input->get('sord');
 		$is_super = $this->is_super();
 
-		echo json_encode( $this->projects_model->getProjects( $is_super, $page, $user_id, $row_page, $limit, $sidx, $sord ) );
+		echo json_encode( $this->projects_model->getProjects( $is_super, $page, $row_page, $limit, $sidx, $sord ) );
 
 	}
 
