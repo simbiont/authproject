@@ -1,9 +1,9 @@
 <!-- <h4>HTML 5 runtime</h4> -->
+<div id="files_grid" class="span10 offset1">
+    <div id="alarm"></div>
 
-<div id="alarm"></div>
-
-<div id="html5_uploader">You browser doesn't support native upload. Try Firefox 3 or Safari 4.</div>
-
+    <div id="html5_uploader">You browser doesn't support native upload. Try Firefox 3 or Safari 4.</div>
+</div>
 <script type="text/javascript">
 
     $(function() {

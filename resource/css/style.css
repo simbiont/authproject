@@ -192,6 +192,10 @@ input[type="checkbox"] {
   margin: 0 5px 0 0;
 }
 
+#divPager_center input[type="text"], #divPager_center select {
+  width: 50px;
+}
+
 .select_label {
   margin-top: 20px;
 }
@@ -205,4 +209,19 @@ input[type="checkbox"] {
 
 #files_grid {
   margin-top: 30px;
+}
+
+#description {
+  width: 203px;
+}
+#service {
+  width: 217px;
+}
+
+#editmodtblJQGrid {
+  width: 315px;
+}
+
+.plupload_container {
+  padding: 0;
 }

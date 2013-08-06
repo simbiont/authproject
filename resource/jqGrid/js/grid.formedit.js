@@ -305,7 +305,7 @@ $.jgrid.extend({
 		p = $.extend(true, {
 			top : 0,
 			left: 0,
-			width: 300,
+			width: 315,
 			datawidth: 'auto',
 			height: 'auto',
 			dataheight: 'auto',

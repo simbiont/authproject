@@ -547,7 +547,10 @@ $.jgrid.extend({
 							$("#"+gID+"_iladd").addClass('ui-state-disabled');
 							$("#"+gID+"_iledit").addClass('ui-state-disabled');
 						} else {
-							$.jgrid.viewModal("#alertmod",{gbox:"#gbox_"+gID,jqm:true});$("#jqg_alrt").focus();							
+							alert('Please, choose a row');
+							$.jgrid.viewModal("#alertmod",{gbox:"#gbox_"+gID,jqm:true});$("#jqg_alrt").focus();		
+							$('.ui-jqgrid .jqgrid-overlay').hide();
+
 						}
 					}
 				});

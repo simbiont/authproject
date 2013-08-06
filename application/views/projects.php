@@ -7,18 +7,19 @@
 			<table id="tblJQGrid"></table>
 			<div id="divPager"></div>
 
-			<div class="span5 grid_buttons">            
+			<!-- <div class="span5 grid_buttons">            
 				<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
 				<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
-			</div>
+			</div> -->
 
-		</div>
-
-		<div id="files_grid">
-			<?php echo $this->load->view('upload-form', $this->data); ?>
 		</div>
 
 	</div>
+	
+		<!-- <div > -->
+			<?php echo $this->load->view('upload-form', $this->data); ?>
+		<!-- </div> -->
+	<!-- </div> -->
 
 </div>
 
@@ -31,7 +32,6 @@
 	$(document).ready(function() {
 
 		createUserGrid();
-
 	});
 
 	function createUserGrid() {
@@ -43,12 +43,12 @@
 			url: projectsDataProviderUrl,
 			datatype: "json",
 			height: '100%',
-			width: 1000,	        	
+			width: 970,	        	
 			colNames:[ 'Initials', 'Date', 'Service','Description','Hours','Rate','Amount' ],
 			colModel:[
 				{name:'initials',index:'initials', editable:true, width:100, editoptions:{size:"20"}},
 
-				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:100, editoptions:{
+				{name:'date',index:'date', sorttype:'date', formatter: 'date', formatoptions: { 'srcformat' : 'Y-m-d H:i:s', 'newformat' : 'Y-m-d' }, editable:true, width:60, editoptions:{
 					dataInit:function(el){ 
 						$(el).datepicker({dateFormat:'yy-mm-dd'}); 
 					},
@@ -71,13 +71,13 @@
 
 			],
 			
-			onSelectRow: function(id){
-				if(id && id!==lastsel){
-					$('#tblJQGrid').jqGrid('restoreRow',lastsel);
-					$('#tblJQGrid').jqGrid('editRow',id,true);
-					lastsel=id;
-				}
-			},
+			// onSelectRow: function(id){
+			// 	if(id && id!==lastsel){
+			// 		$('#tblJQGrid').jqGrid('restoreRow',lastsel);
+			// 		$('#tblJQGrid').jqGrid('editRow',id,true);
+			// 		lastsel=id;
+			// 	}
+			// },
 
 			viewrecords: true,
 			sortorder: "desc",
@@ -89,16 +89,16 @@
 			editurl: projectsDataEditUrl,
 			caption: "Projects List" 
 		});
-		$("#bedata").click(function(){
-			$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
-		});
-		$("#dedata").click(function(){
-			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
-			if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
-			else alert("Please Select Row to delete!");
+		// $("#bedata").click(function(){
+		// 	$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
+		// });
+		// $("#dedata").click(function(){
+		// 	var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
+		// 	if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+		// 	else alert("Please Select Row to delete!");
 
-		});
-		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
-
+		// });
+		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:true,del:true, addtext: 'Add',deltext: 'Delete'},{},{ closeAfterAdd:true});
+		$("#tblJQGrid").jqGrid('inlineNav',"#divPager", {add:false,edittext: 'Edit',savetext:'Save', canceltext:'Cancel'});
 	}
 </script>

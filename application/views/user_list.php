@@ -4,10 +4,10 @@
             <table id="tblJQGrid"></table>
             <div id="divPager"></div>
         </div>
-        <div class="span4 offset1 grid_buttons">            
+       <!--  <div class="span4 offset1 grid_buttons">            
             <input type="button" id="bedata" class="btn btn-success" value="Add New User" />
             <input type="button" id="dedata" class="btn btn-danger" value="Delete Selected User" />
-        </div>
+        </div> -->
 
     </div>
 
@@ -18,6 +18,8 @@
 		$(document).ready(function() {
 
 			createUserGrid();
+			$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:true,del:true, addtext: 'Add',deltext: 'Delete'},{},{ closeAfterAdd:true});
+			$("#tblJQGrid").jqGrid('inlineNav',"#divPager", {add:false,edittext: 'Edit',savetext:'Save', canceltext:'Cancel'});
 
 		});
 
@@ -39,13 +41,13 @@
 	
 					{name:'id',index:'id', hidden:true, editrules: {edithidden:false} },	
 				],				
-				onSelectRow: function(id){
-					if(id && id!==lastsel){
-						$('#tblJQGrid').jqGrid('restoreRow',lastsel);
-						$('#tblJQGrid').jqGrid('editRow',id,true);
-						lastsel=id;
-					}
-				},
+				// onSelectRow: function(id){
+				// 	if(id && id!==lastsel){
+				// 		$('#tblJQGrid').jqGrid('restoreRow',lastsel);
+				// 		$('#tblJQGrid').jqGrid('editRow',id,true);
+				// 		lastsel=id;
+				// 	}
+				// },
 				viewrecords: true,
 				sortorder: "desc",
 				rowNum: 5,
@@ -55,7 +57,19 @@
 				gridview: true,
 				editurl: usersDataEditUrl,
 				caption: "Users List" 
-		});
+			});
+		}
+		// $("#bedata").click(function(){
+		// 	$("#tblJQGrid").jqGrid('editGridRow',"new",{ height:'auto', width:'auto',reloadAfterSubmit:true, recreateForm:false, closeAfterAdd:true, afterSubmit : function(response) { if(response.responseText != "") alert(response.responseText); return false;}});
+		// });
+		// $("#dedata").click(function(){
+		// 	var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
+		// 	if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
+		// 	else alert("Please Select Row to delete!");
+		// });
+		// $("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
+
+
 		function myminlenght (value, colname) {
 			if (colname=='Password' && value.length < 8){
 
@@ -65,16 +79,5 @@
 				return [true,"",""];
 
 			}
-		}
-		$("#bedata").click(function(){
-			$("#tblJQGrid").jqGrid('editGridRow',"new",{ height:'auto', width:'auto',reloadAfterSubmit:true, recreateForm:false, closeAfterAdd:false, afterSubmit : function(response) { if(response.responseText != "") alert(response.responseText); return false;}});
-		});
-		$("#dedata").click(function(){
-			var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
-			if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
-			else alert("Please Select Row to delete!");
-		});
-		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:false});
-
 		}
 	</script>
