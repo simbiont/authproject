@@ -9,7 +9,6 @@ class Projects extends MY_Controller {
 	}
 
 	public function index () {
-		// TODO: main user's projects page
 		$this->browse();
 	}
 
@@ -21,8 +20,6 @@ class Projects extends MY_Controller {
 			} 
 			if ($this->is_super()) {
 				$this->load->model('projects_model');
-
-
 
 				$users_list = $this->projects_model->getAllUsersList($user_id);
 
@@ -60,7 +57,6 @@ class Projects extends MY_Controller {
 		if ( !$this->authentication->is_signed_in() ) {
 			return $this->access_denied();
 		} else {
-			// TODO: add new project
 			$this->load->model('projects_model');
 			$projectName = $this->input->post('project_name');
 			$project_user_id = $this->input->post('project_user_id');

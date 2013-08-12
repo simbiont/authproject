@@ -40,6 +40,8 @@
 
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/plupload/js/plupload.full.js"></script>
 <script type="text/javascript" src="<?php echo base_url().RES_DIR; ?>/plupload/js/jquery.plupload.queue/jquery.plupload.queue.js"></script>
+<script type="text/javascript" src="http://bp.yahooapis.com/2.4.21/browserplus-min.js"></script>
+
 <!-- upload -->
 
 <link type="text/css" rel="stylesheet" href="<?php echo base_url().RES_DIR; ?>/css/style.css"/>

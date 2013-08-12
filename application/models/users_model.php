@@ -45,6 +45,7 @@
 			$users = $this->db->get_where('a3m_account', array( "id !=" => $user_id ));
 
 			foreach ($users->result() as $user) {
+				$user->password = "******";
 				$usersList->rows[] = $user;
 			}
 

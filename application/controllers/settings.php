@@ -8,7 +8,6 @@ class Settings extends MY_Controller {
 	}
 
 	public function index () {
-		// TODO: main user's users page
 		$this->browse();
 	}
 
@@ -16,11 +15,7 @@ class Settings extends MY_Controller {
 
 		if ($this->authentication->is_signed_in() && $this->is_super()) {
 			if( !$user_id ) {
-				$user_id = $this->session->userdata('account_id');
-			   
-			} else {
-				// TODO: check if not an admin prevent users displaying
-
+				$user_id = $this->session->userdata('account_id');			   
 			}
 		} else {
 			return $this->access_denied();

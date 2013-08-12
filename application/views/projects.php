@@ -7,19 +7,11 @@
 			<table id="tblJQGrid"></table>
 			<div id="divPager"></div>
 
-			<!-- <div class="span5 grid_buttons">            
-				<input type="button" id="bedata" class="btn btn-success" value="Add New Field" />
-				<input type="button" id="dedata" class="btn btn-danger" value="Delete Selected Field" />   
-			</div> -->
-
 		</div>
 
 	</div>
-	
-		<!-- <div > -->
-			<?php echo $this->load->view('upload-form', $this->data); ?>
-		<!-- </div> -->
-	<!-- </div> -->
+
+	<?php echo $this->load->view('upload-form', $this->data); ?>
 
 </div>
 
@@ -70,15 +62,6 @@
 				{name:'amount',index:'amount', width:80, editable:true, align:"right", editoptions:{size:"10"}}
 
 			],
-			
-			// onSelectRow: function(id){
-			// 	if(id && id!==lastsel){
-			// 		$('#tblJQGrid').jqGrid('restoreRow',lastsel);
-			// 		$('#tblJQGrid').jqGrid('editRow',id,true);
-			// 		lastsel=id;
-			// 	}
-			// },
-
 			viewrecords: true,
 			sortorder: "desc",
 			rowNum: fields_num,
@@ -89,16 +72,7 @@
 			editurl: projectsDataEditUrl,
 			caption: "Projects List" 
 		});
-		// $("#bedata").click(function(){
-		// 	$("#tblJQGrid").jqGrid('editGridRow',"new",{height:'auto', width:'auto',reloadAfterSubmit:true, closeAfterAdd:true});
-		// });
-		// $("#dedata").click(function(){
-		// 	var gr = $("#tblJQGrid").jqGrid('getGridParam','selrow');
-		// 	if( gr != null ) $("#tblJQGrid").jqGrid('delGridRow',gr,{reloadAfterSubmit:false});
-		// 	else alert("Please Select Row to delete!");
-
-		// });
-		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:true,del:true, addtext: 'Add',deltext: 'Delete'},{},{ closeAfterAdd:true});
-		$("#tblJQGrid").jqGrid('inlineNav',"#divPager", {add:false,edittext: 'Edit',savetext:'Save', canceltext:'Cancel'});
+		$("#tblJQGrid").jqGrid('navGrid',"#divPager",{edit:false,add:false,del:true, deltext: 'Delete'});
+		$("#tblJQGrid").jqGrid('inlineNav',"#divPager", {add:true,edittext: 'Edit', addtext: 'Add', savetext:'Save', canceltext:'Cancel'});
 	}
 </script>

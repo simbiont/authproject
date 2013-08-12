@@ -8,7 +8,7 @@ class Users extends MY_Controller {
 	}
 
 	public function index () {
-		// TODO: main user's users page
+
 		$this->browse();
 	}
 
@@ -18,9 +18,6 @@ class Users extends MY_Controller {
 			if( !$user_id ) {
 				$user_id = $this->session->userdata('account_id');
 			   
-			} else {
-				// TODO: check if not an admin prevent users displaying
-
 			}
 		} else {
 			return $this->access_denied();
@@ -29,16 +26,6 @@ class Users extends MY_Controller {
 		$this->data['page'] = $page;
 
 		$this->master_view( 'user_list' );
-	}
-
-	public function add ( $user_id = null ) {
-
-		if ( !$this->authentication->is_signed_in() || !$this->is_super() ) {
-			return $this->access_denied();
-		} else {
-			// $this->data['account'] = $this->account_model->get_by_id( $this->session->userdata('account_id') );
-		}
-
 	}
 
 	public function ajax_json_provider_users( $page = 0 ) {
@@ -62,6 +49,7 @@ class Users extends MY_Controller {
 		$oldemail = $this->account_model->get_by_email($email);
 
 		$oper = $this->input->post('oper');
+		// Add new user
 		if ($oper == "add") {
 			if( !empty($olduser) ) {
 				echo "This username allready exist!";
@@ -74,9 +62,13 @@ class Users extends MY_Controller {
 
 			$newUserId = $this->users_model->addNewUser( $username, $email, $password );
 			$this->account_model->set_role($newUserId, $role_id = 2);
-		} elseif($oper == "edit") {
+		} 
+		// Edit exist user
+		elseif ($oper == "edit") {
 			$this->users_model->editUser( $username, $email, $id );
-		} elseif ($oper == "del") {
+		} 
+		// Delete user
+		elseif ($oper == "del") {
 			$this->users_model->deleteUser($id);
 		}
 	}
