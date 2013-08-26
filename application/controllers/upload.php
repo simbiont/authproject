@@ -114,9 +114,11 @@ class Upload extends MY_Controller {
 
         $this->email->subject('New file to project '.$project_name);
         $this->email->message('User '.$username);  
-        $this->email->attach($attach);
-        return $this->email->send();
+        $this->email->attach($attach);	
+	
+	echo $this->email->print_debugger();
+	 return $this->email->send();
 
-        // echo $this->email->print_debugger();
+         
     }
 }
