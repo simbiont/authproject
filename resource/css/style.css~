@@ -225,9 +225,3 @@ input[type="checkbox"] {
 .plupload_container {
   padding: 0;
 }
-
-.ui-jqgrid .ui-jqgrid-pager .ui-pg-div span.ui-icon {
-    display: inline-block;
-    float: none;
-    margin: -1px 2px;
-}
