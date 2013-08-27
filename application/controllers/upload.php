@@ -116,7 +116,7 @@ class Upload extends MY_Controller {
         $this->email->message('User '.$username);  
         $this->email->attach($attach);	
 	
-	echo $this->email->print_debugger();
+	//echo $this->email->print_debugger();
 	 return $this->email->send();
 
          
