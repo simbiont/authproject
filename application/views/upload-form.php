@@ -1,7 +1,7 @@
 <!-- <h4>HTML 5 runtime</h4> -->
 <div id="files_grid" class="span10 offset1">
     <div id="alarm"></div>
-    <button id="pickfiles" class="btn">Select files</button>
+    <button id="pickfiles" class="btn">Upload files</button>
 
     <button id="csvExample" class="btn">CSV Example</button>
     <div id="filelist">No runtime found.</div>
