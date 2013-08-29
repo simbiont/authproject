@@ -2,16 +2,16 @@
 <div id="files_grid" class="span10 offset1">
     <div id="alarm"></div>
     <button id="pickfiles" class="btn">Select files</button>
-    <button id="uploadfiles" class="btn">Upload files</button>
+
     <button id="csvExample" class="btn">CSV Example</button>
     <div id="filelist">No runtime found.</div>
 </div>
 <script type="text/javascript">
 
     $(function() {
-        console.log(document.location);
+       
         $('#csvExample').click(function(){
-            document.location.href = document.location.protocol+'//'+document.location.host+'/resource/example_csv.csv';
+            document.location.href = document.location.protocol+'//'+document.location.host+'/authproject.dev/resource/example_csv.csv';
         });
 
         var base = "<?php echo base_url(); ?>";
@@ -59,6 +59,7 @@
             });
 
             up.refresh(); // Reposition Flash/Silverlight
+	    uploader.start();
         });
 
         uploader.bind('UploadProgress', function(up, file) {
